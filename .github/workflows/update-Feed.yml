@@ -61,8 +61,7 @@ jobs:
 
             do {
               const response = await fetch(
-                \`https://\${domain}/api/2026-04/graphql.json\`,
-                {
+                "https://" + domain + "/api/2026-04/graphql.json",
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
@@ -87,7 +86,7 @@ jobs:
                 items.push({
                   "$id": product.id,
                   "$title": product.title,
-                  "$link": product.onlineStoreUrl || \`https://\${domain}/products/\${product.handle}\`,
+                 "$link": product.onlineStoreUrl || "https://" + domain + "/products/" + product.handle,
                   "$image_link": product.featuredImage?.url || "",
                   "$description": product.description || "",
                   "3_second_reach": product.metafield.value
@@ -102,10 +101,10 @@ jobs:
 
             fs.writeFileSync(
               "feed.json",
-              JSON.stringify({ items }, null, 2)
+              JSON.stringify(items, null, 2)
             );
 
-            console.log(\`Generated feed with \${items.length} products.\`);
+           console.log("Generated feed with " + items.length + " products.");
           }
 
           main().catch(error => {
